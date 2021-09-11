@@ -1,0 +1,35 @@
+
+
+                                #The challenge here is to implement an adder of 2 ints WITHOUT any ARITHMATIC operators (other operators are fine)
+def sum(a,b):
+    #code here
+    c = 0
+    a = bin(a)[2:]
+    b = bin(b)[2:]              #here we switch to base-2 (binary)
+    n = max(len(a),len(b)) 
+    
+    a = a.zfill(n)
+    b = b.zfill(n)              #here we make sure we are working with vectors of rhe same length 
+                                  # solution is possible without this step. think of how to do it!
+    a = list(a)                   
+    b = list(b)                   # convert a an b to lists. again, not necessary yet cleaner
+    
+    
+    
+    v = ""                        # initialize answer string
+    
+    #                             ___________________main loop_______________________________
+    while a and b:                
+        a0 = int(a.pop())         #shift a0 to the left
+        b0 = int(b.pop())
+        
+        d = a0^b0^c                                     #d is XOR of a, b and carry
+        c = (b0 and a0) or (a0 and c) or (b0 and c)     #next carry is 1 only if  we are dealing with atleast two 1 bits
+        
+        
+        v = str(d) + v
+    if c:                                               #the n+1 bit is 1 ONLY if we have carry
+        v = '1' + v
+        
+    val = int(v,2)
+    return val
